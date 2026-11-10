@@ -1,6 +1,8 @@
 <?php 
 include('db_connect.php');
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 $utype = array('','users','staff','customers');
 if(isset($_GET['id'])){
 $user = $conn->query("SELECT * FROM {$utype[$_SESSION['login_type']]} where id =".$_GET['id']);
