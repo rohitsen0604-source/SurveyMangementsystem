@@ -19,13 +19,13 @@ Class Action {
 
 	function login(){
 		extract($_POST);
-			$qry = $this->db->query("SELECT *,concat(lastname,', ',firstname,' ',middlename) as name FROM users where email = '".$email."' and password = '".md5($password)."' ");
-		if($qry->num_rows > 0){
+		$qry = $this->db->query("SELECT *,concat(lastname,', ',firstname,' ',middlename) as name FROM users where email = '".$email."' and password = '".md5($password)."' ");
+		if($qry && $qry->num_rows > 0){
 			foreach ($qry->fetch_array() as $key => $value) {
 				if($key != 'password' && !is_numeric($key))
 					$_SESSION['login_'.$key] = $value;
 			}
-				return 1;
+			return 1;
 		}else{
 			return 3;
 		}
@@ -36,6 +36,7 @@ Class Action {
 			unset($_SESSION[$key]);
 		}
 		header("location:login.php");
+		exit;
 	}
 
 	function save_user(){

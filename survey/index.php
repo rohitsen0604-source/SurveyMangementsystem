@@ -1,11 +1,13 @@
+<?php 
+session_start();
+if(!isset($_SESSION['login_id'])){
+    header('location:login.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
-<?php session_start() ?>
-<?php 
-	if(!isset($_SESSION['login_id']))
-	    header('location:login.php');
-	include 'header.php' 
-?>
+<?php include 'header.php'; ?>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
   <?php include 'topbar.php' ?>
