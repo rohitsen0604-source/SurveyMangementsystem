@@ -11,6 +11,15 @@ mysqli_report(MYSQLI_REPORT_OFF);
 
 $conn = @new mysqli($host, $user, $password, $dbname, $port);
 
+// Automatic fallback to embedded local MariaDB if external DB connection fails
+if ($conn->connect_error && $host !== '127.0.0.1' && $host !== 'localhost') {
+    error_log("Primary DB connection to {$host} failed ({$conn->connect_error}). Falling back to embedded MariaDB.");
+    $fallback_conn = @new mysqli('127.0.0.1', 'root', '', $dbname, 3306);
+    if (!$fallback_conn->connect_error) {
+        $conn = $fallback_conn;
+    }
+}
+
 if ($conn->connect_error) {
     die("Database connection failed: " . $conn->connect_error);
 }

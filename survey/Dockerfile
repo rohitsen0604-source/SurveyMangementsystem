@@ -47,3 +47,4 @@ EXPOSE 80
 
 # Execute entrypoint
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
