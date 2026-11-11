@@ -98,3 +98,4 @@ chmod -R 777 /var/www/html/assets/uploads
 echo "==> [Entrypoint] Survey Management System setup complete!"
 echo "==> [Entrypoint] Starting Apache in foreground on port ${PORT}..."
 exec apache2-foreground
+
